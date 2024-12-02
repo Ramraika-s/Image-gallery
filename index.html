@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Interactive Image Gallery</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <!-- Search Bar and Category Filter -->
-    <header>
-        <input type="text" id="search-bar" placeholder="Search images..." onkeyup="filterImages()">
-        <div class="category-filter">
-            <button onclick="filterCategory('nature')">Nature</button>
-            <button onclick="filterCategory('abstract')">Abstract</button>
-            <button onclick="filterCategory('city')">City</button>
-            <button onclick="showAll()">Show All</button>
-        </div>
-    </header>
 
-    <!-- Image Gallery Container -->
-    <div class="gallery-container" id="gallery-container">
-        <!-- Placeholder images -->
-        <figure class="image-item nature">
-            <img src="https://picsum.photos/200?random=1" alt="Nature Image 1">
-            <figcaption>Nature - Placeholder</figcaption>
-            <button class="download-btn">Download</button>
-        </figure>
-        <figure class="image-item abstract">
-            <img src="https://picsum.photos/200?random=2" alt="Abstract Image 1">
-            <figcaption>Abstract - Placeholder</figcaption>
-            <button class="download-btn">Download</button>
-        </figure>
-        <figure class="image-item city">
-            <img src="https://picsum.photos/200?random=3" alt="City Image 1">
-            <figcaption>City - Placeholder</figcaption>
-            <button class="download-btn">Download</button>
-        </figure>
-        <!-- Add more images here -->
+    <!-- Gallery Container -->
+    <div class="gallery-container">
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search images..." oninput="filterImages()">
+            <select id="category-filter" onchange="filterImages()">
+                <option value="all">All</option>
+                <option value="abstract">Abstract</option>
+                <option value="nature">Nature</option>
+                <option value="city">City</option>
+                <option value="sunset">Sunset</option>
+            </select>
+        </div>
+
+        <div class="gallery">
+            <div class="image-item" data-category="abstract">
+                <figure>
+                    <img src="assets/images/abstract-art.jpg" alt="Abstract Art" loading="lazy">
+                    <figcaption>Abstract Art</figcaption>
+                    <button class="download-btn" onclick="downloadImage('abstract-art.jpg')">Download</button>
+                </figure>
+            </div>
+            <div class="image-item" data-category="nature">
+                <figure>
+                    <img src="assets/images/forest.jpg" alt="Forest" loading="lazy">
+                    <figcaption>Forest</figcaption>
+                    <button class="download-btn" onclick="downloadImage('forest.jpg')">Download</button>
+                </figure>
+            </div>
+            <div class="image-item" data-category="city">
+                <figure>
+                    <img src="assets/images/city-view.jpg" alt="City View" loading="lazy">
+                    <figcaption>City View</figcaption>
+                    <button class="download-btn" onclick="downloadImage('city-view.jpg')">Download</button>
+                </figure>
+            </div>
+            <div class="image-item" data-category="sunset">
+                <figure>
+                    <img src="assets/images/sunset.jpg" alt="Sunset" loading="lazy">
+                    <figcaption>Sunset</figcaption>
+                    <button class="download-btn" onclick="downloadImage('sunset.jpg')">Download</button>
+                </figure>
+            </div>
+        </div>
     </div>
 
-    <!-- Fullscreen Slideshow Modal -->
+    <!-- Lightbox for Image Viewing -->
     <div id="lightbox" class="lightbox">
-        <div class="lightbox-content">
-            <button class="close-btn" onclick="closeLightbox()">×</button>
-            <div class="slideshow-container">
-                <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-                <img id="lightbox-img" src="" alt="Full Image">
-                <button class="next" onclick="moveSlide(1)">&#10095;</button>
-            </div>
+        <span class="close" onclick="closeLightbox()">×</span>
+        <img id="lightbox-image" src="" alt="Lightbox Image">
+        <div class="nav-buttons">
+            <button onclick="moveSlide(-1)">&#10094;</button>
+            <button onclick="moveSlide(1)">&#10095;</button>
         </div>
     </div>
 
     <script src="scripts.js"></script>
 </body>
-
 </html>
