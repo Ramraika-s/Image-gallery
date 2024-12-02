@@ -3,48 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Image Gallery</title>
+    <title>Image Gallery</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>Advanced Image Gallery</h1>
         <div class="controls">
-            <input type="text" id="searchBar" placeholder="Search images..." oninput="searchImages()">
-            <select id="categoryFilter" onchange="filterImages()">
-                <option value="all">All</option>
+            <input type="text" id="searchBar" placeholder="Search by caption..." />
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
                 <option value="nature">Nature</option>
-                <option value="city">City</option>
                 <option value="abstract">Abstract</option>
+                <option value="city">City</option>
             </select>
-            <button id="themeToggle" onclick="toggleTheme()">Switch Theme</button>
-            <button id="slideshowButton" onclick="startSlideshow()">Start Slideshow</button>
+            <button id="slideshowButton">Start Slideshow</button>
+            <button id="toggleTheme">Toggle Theme</button>
         </div>
     </header>
-
-    <main class="gallery" id="gallery">
-        <!-- Images are dynamically loaded -->
-    </main>
-
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox">
-        <div class="lightbox-content">
-            <span class="close" onclick="closeLightbox()">&times;</span>
-            <img id="lightboxImage" src="" alt="Fullscreen Image">
-            <div class="caption" id="caption"></div>
-            <button id="downloadButton" onclick="downloadImage()">Download</button>
-            <div class="navigation">
-                <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-                <span class="next" onclick="changeImage(1)">&#10095;</span>
-            </div>
-        </div>
+    <main id="gallery"></main>
+    <div id="fullscreen" class="hidden">
+        <img id="fullscreenImg" src="" alt="Fullscreen Image">
+        <div id="fullscreenCaption"></div>
+        <button id="prevBtn">&#10094;</button>
+        <button id="nextBtn">&#10095;</button>
+        <button id="closeFullscreen">X</button>
     </div>
-
-    <footer>
-        <p>© 2024 Shivam's Portfolio | Advanced Image Gallery Project</p>
-    </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
