@@ -1,8 +1,8 @@
 const images = [
-    { src: 'image1.jpg', caption: 'Sunset', category: 'nature' },
-    { src: 'image2.jpg', caption: 'City View', category: 'city' },
-    { src: 'image3.jpg', caption: 'Abstract Art', category: 'abstract' },
-    { src: 'image4.jpg', caption: 'Forest', category: 'nature' },
+    { src: 'images/sunset.jpg', caption: 'Sunset', category: 'nature' },
+    { src: 'images/city-view.jpg', caption: 'City View', category: 'city' },
+    { src: 'images/Abstract-art.jpg', caption: 'Abstract Art', category: 'abstract' },
+    { src: 'images/Forest.jpg', caption: 'Forest', category: 'nature' },
 ];
 
 let currentIndex = 0;
