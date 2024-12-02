@@ -1,56 +1,84 @@
-// Open the modal to view image in full-screen mode
-function openModal(imageSrc, captionText, downloadUrl) {
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const modalCaption = document.getElementById('modalCaption');
-    const downloadBtn = document.getElementById('downloadBtn');
+document.addEventListener("DOMContentLoaded", () => {
+    // Search Functionality
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const imageItems = document.querySelectorAll(".image-item");
 
-    modal.style.display = 'block';
-    modalImage.src = imageSrc;
-    modalCaption.textContent = captionText;
-    downloadBtn.href = downloadUrl;
-    downloadBtn.style.display = 'inline-block'; // Show the download button
-}
+    const filterImages = () => {
+        const searchQuery = searchInput.value.toLowerCase();
+        const selectedCategory = categoryFilter.value;
 
-// Close the modal
-function closeModal() {
-    const modal = document.getElementById('imageModal');
-    modal.style.display = 'none';
-}
+        imageItems.forEach(item => {
+            const caption = item.querySelector("figcaption").textContent.toLowerCase();
+            const category = item.getAttribute("data-category");
 
-// Handle image click to open modal
-const imageItems = document.querySelectorAll('.image-item');
-imageItems.forEach(item => {
-    const image = item.querySelector('.gallery-image');
-    const caption = item.querySelector('figcaption').textContent;
-    const imageSrc = image.src;
-    const downloadUrl = image.src; // Assuming you want to allow download of the image file
+            const matchesSearch = caption.includes(searchQuery);
+            const matchesCategory = selectedCategory === "all" || category === selectedCategory;
 
-    item.addEventListener('click', () => {
-        openModal(imageSrc, caption, downloadUrl);
+            if (matchesSearch && matchesCategory) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    };
+
+    searchInput.addEventListener("input", filterImages);
+    categoryFilter.addEventListener("change", filterImages);
+
+    // Lazy Loading Images
+    const lazyImages = document.querySelectorAll(".lazy");
+
+    const lazyLoad = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove("lazy");
+                observer.unobserve(img);
+            }
+        });
+    };
+
+    const lazyObserver = new IntersectionObserver(lazyLoad, {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
     });
-});
 
-// Search functionality
-document.getElementById('searchBar').addEventListener('input', filterImages);
-document.getElementById('categoryFilter').addEventListener('change', filterImages);
+    lazyImages.forEach(img => lazyObserver.observe(img));
 
-function filterImages() {
-    const searchQuery = document.getElementById('searchBar').value.toLowerCase();
-    const selectedCategory = document.getElementById('categoryFilter').value;
+    // Modal Functionality
+    const imageModal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    const modalCaption = document.getElementById("modalCaption");
+    const downloadBtn = document.getElementById("downloadBtn");
 
-    const imageItems = document.querySelectorAll('.image-item');
+    const openModal = (img, caption) => {
+        modalImage.src = img.dataset.src || img.src;
+        modalCaption.textContent = caption;
+        downloadBtn.href = modalImage.src;
+        downloadBtn.style.display = "inline-block";
+        imageModal.style.display = "flex";
+    };
+
+    const closeModal = () => {
+        imageModal.style.display = "none";
+        modalImage.src = "";
+    };
+
     imageItems.forEach(item => {
-        const caption = item.querySelector('figcaption').textContent.toLowerCase();
-        const category = item.getAttribute('data-category');
+        const img = item.querySelector(".gallery-image");
+        const caption = item.querySelector("figcaption").textContent;
 
-        const matchesSearch = caption.includes(searchQuery);
-        const matchesCategory = selectedCategory ? category === selectedCategory : true;
-
-        if (matchesSearch && matchesCategory) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
+        img.addEventListener("click", () => openModal(img, caption));
     });
-}
+
+    document.querySelector(".close-btn").addEventListener("click", closeModal);
+    imageModal.addEventListener("click", (e) => {
+        if (e.target === imageModal) closeModal();
+    });
+
+    // Initialize the filter on page load
+    filterImages();
+});
