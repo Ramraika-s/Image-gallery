@@ -1,72 +1,85 @@
 const images = [
-    { src: 'images/sunset.jpg', caption: 'Sunset', category: 'nature' },
-    { src: 'images/city-view.jpg', caption: 'City View', category: 'city' },
     { src: 'images/Abstract-art.jpg', caption: 'Abstract Art', category: 'abstract' },
-    { src: 'images/Forest.jpg', caption: 'Forest', category: 'nature' },
+    { src: 'images/Forest.jpg', caption: 'Beautiful Forest', category: 'nature' },
+    { src: 'images/city-view.jpg', caption: 'City View', category: 'city' },
+    { src: 'images/sunset.jpg', caption: 'Sunset Scenery', category: 'nature' },
 ];
 
+const gallery = document.getElementById('gallery');
+const searchBar = document.getElementById('searchBar');
+const categoryFilter = document.getElementById('categoryFilter');
+const slideshowButton = document.getElementById('slideshowButton');
+const toggleThemeButton = document.getElementById('toggleTheme');
+const fullscreen = document.getElementById('fullscreen');
+const fullscreenImg = document.getElementById('fullscreenImg');
+const fullscreenCaption = document.getElementById('fullscreenCaption');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const closeFullscreen = document.getElementById('closeFullscreen');
+
 let currentIndex = 0;
-let slideshowInterval = null;
+let slideshowInterval;
 
 function renderGallery() {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = images.map((img, index) => `
-        <div class="image-container" onclick="openLightbox(${index})">
-            <img src="${img.src}" alt="${img.caption}">
-        </div>
-    `).join('');
+    gallery.innerHTML = '';
+    const query = searchBar.value.toLowerCase();
+    const category = categoryFilter.value;
+
+    images
+        .filter(img =>
+            (category === 'all' || img.category === category) &&
+            img.caption.toLowerCase().includes(query)
+        )
+        .forEach((img, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <img src="${img.src}" alt="${img.caption}" data-index="${index}">
+                <div class="caption">${img.caption}</div>
+            `;
+            card.addEventListener('click', () => openFullscreen(index));
+            gallery.appendChild(card);
+        });
 }
 
-function openLightbox(index) {
+function openFullscreen(index) {
     currentIndex = index;
-    const lightbox = document.getElementById('lightbox');
-    document.getElementById('lightboxImage').src = images[currentIndex].src;
-    document.getElementById('caption').textContent = images[currentIndex].caption;
-    lightbox.style.display = 'flex';
+    fullscreenImg.src = images[currentIndex].src;
+    fullscreenCaption.textContent = images[currentIndex].caption;
+    fullscreen.classList.remove('hidden');
 }
 
-function closeLightbox() {
-    document.getElementById('lightbox').style.display = 'none';
-    stopSlideshow();
+function closeFullscreenMode() {
+    fullscreen.classList.add('hidden');
+    clearInterval(slideshowInterval);
 }
 
-function changeImage(direction) {
-    currentIndex = (currentIndex + direction + images.length) % images.length;
-    openLightbox(currentIndex);
+function showNextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    openFullscreen(currentIndex);
 }
 
-function searchImages() {
-    const query = document.getElementById('searchBar').value.toLowerCase();
-    const filtered = images.filter(img => img.caption.toLowerCase().includes(query));
-    renderGallery(filtered);
-}
-
-function filterImages() {
-    const category = document.getElementById('categoryFilter').value;
-    const filtered = category === 'all' ? images : images.filter(img => img.category === category);
-    renderGallery(filtered);
+function showPrevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    openFullscreen(currentIndex);
 }
 
 function startSlideshow() {
-    if (slideshowInterval) return;
-    slideshowInterval = setInterval(() => changeImage(1), 2000);
-}
-
-function stopSlideshow() {
-    clearInterval(slideshowInterval);
-    slideshowInterval = null;
+    if (!slideshowInterval) {
+        slideshowInterval = setInterval(showNextImage, 3000);
+    }
 }
 
 function toggleTheme() {
-    document.body.classList.toggle('light-mode');
+    document.body.classList.toggle('light-theme');
 }
 
-function downloadImage() {
-    const a = document.createElement('a');
-    a.href = images[currentIndex].src;
-    a.download = images[currentIndex].caption;
-    a.click();
-}
+searchBar.addEventListener('input', renderGallery);
+categoryFilter.addEventListener('change', renderGallery);
+slideshowButton.addEventListener('click', startSlideshow);
+toggleThemeButton.addEventListener('click', toggleTheme);
+closeFullscreen.addEventListener('click', closeFullscreenMode);
+prevBtn.addEventListener('click', showPrevImage);
+nextBtn.addEventListener('click', showNextImage);
 
-// Initial Render
 renderGallery();
