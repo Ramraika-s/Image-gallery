@@ -1,56 +1,63 @@
-// Get elements
-const galleryItems = document.querySelectorAll('.gallery-item img');
-const lightbox = document.querySelector('.lightbox');
-const lightboxImage = document.querySelector('.lightbox-image');
-const lightboxCaption = document.querySelector('.lightbox-caption');
-const closeBtn = document.querySelector('.lightbox .close');
-const prevBtn = document.querySelector('.lightbox .prev');
-const nextBtn = document.querySelector('.lightbox .next');
+// Image Gallery Navigation
+let currentSlideIndex = 0;
+let images = document.querySelectorAll('.image-item img');
+let lightbox = document.getElementById('lightbox');
+let lightboxImage = document.getElementById('lightbox-img');
 
-// Variables
-let currentIndex = 0;
+function openLightbox(index) {
+    currentSlideIndex = index;
+    lightbox.style.display = 'flex';
+    lightboxImage.src = images[currentSlideIndex].src;
+}
 
-// Open Lightbox
-galleryItems.forEach((item, index) => {
-    item.addEventListener('click', () => {
-        currentIndex = index;
-        showLightbox(item);
+function closeLightbox() {
+    lightbox.style.display = 'none';
+}
+
+function moveSlide(direction) {
+    currentSlideIndex += direction;
+    if (currentSlideIndex >= images.length) currentSlideIndex = 0;
+    if (currentSlideIndex < 0) currentSlideIndex = images.length - 1;
+    lightboxImage.src = images[currentSlideIndex].src;
+}
+
+// Download Button
+document.querySelectorAll('.download-btn').forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+        let imageSrc = images[index].src;
+        let a = document.createElement('a');
+        a.href = imageSrc;
+        a.download = `image_${index + 1}.jpg`;
+        a.click();
     });
 });
 
-function showLightbox(item) {
-    lightbox.style.display = 'flex';
-    lightboxImage.src = item.src;
-    lightboxCaption.textContent = item.dataset.caption;
+// Search Bar Filter
+function filterImages() {
+    let query = document.getElementById('search-bar').value.toLowerCase();
+    document.querySelectorAll('.image-item').forEach(item => {
+        let caption = item.querySelector('figcaption').textContent.toLowerCase();
+        if (caption.includes(query)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
 }
 
-// Close Lightbox
-closeBtn.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-});
-
-// Navigate Images
-prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-    updateLightbox();
-});
-
-nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % galleryItems.length;
-    updateLightbox();
-});
-
-function updateLightbox() {
-    const item = galleryItems[currentIndex];
-    lightboxImage.src = item.src;
-    lightboxCaption.textContent = item.dataset.caption;
+// Category Filter
+function filterCategory(category) {
+    document.querySelectorAll('.image-item').forEach(item => {
+        if (item.classList.contains(category)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
 }
 
-// Keyboard Navigation
-document.addEventListener('keydown', (e) => {
-    if (lightbox.style.display === 'flex') {
-        if (e.key === 'ArrowLeft') prevBtn.click();
-        if (e.key === 'ArrowRight') nextBtn.click();
-        if (e.key === 'Escape') closeBtn.click();
-    }
-});
+function showAll() {
+    document.querySelectorAll('.image-item').forEach(item => {
+        item.style.display = 'block';
+    });
+}
