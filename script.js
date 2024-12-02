@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Search Functionality
     const searchInput = document.getElementById("searchInput");
     const categoryFilter = document.getElementById("categoryFilter");
     const imageItems = document.querySelectorAll(".image-item");
@@ -15,18 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const matchesSearch = caption.includes(searchQuery);
             const matchesCategory = selectedCategory === "all" || category === selectedCategory;
 
-            if (matchesSearch && matchesCategory) {
-                item.style.display = "block";
-            } else {
-                item.style.display = "none";
-            }
+            item.style.display = matchesSearch && matchesCategory ? "block" : "none";
         });
     };
 
     searchInput.addEventListener("input", filterImages);
     categoryFilter.addEventListener("change", filterImages);
 
-    // Lazy Loading Images
     const lazyImages = document.querySelectorAll(".lazy");
 
     const lazyLoad = (entries, observer) => {
@@ -40,16 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    const lazyObserver = new IntersectionObserver(lazyLoad, {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.1,
-    });
-
+    const lazyObserver = new IntersectionObserver(lazyLoad, { threshold: 0.1 });
     lazyImages.forEach(img => lazyObserver.observe(img));
 
-    // Modal Functionality
-    const imageModal = document.getElementById("imageModal");
+    const modal = document.getElementById("imageModal");
     const modalImage = document.getElementById("modalImage");
     const modalCaption = document.getElementById("modalCaption");
     const downloadBtn = document.getElementById("downloadBtn");
@@ -58,13 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
         modalImage.src = img.dataset.src || img.src;
         modalCaption.textContent = caption;
         downloadBtn.href = modalImage.src;
-        downloadBtn.style.display = "inline-block";
-        imageModal.style.display = "flex";
+        modal.style.display = "flex";
     };
 
     const closeModal = () => {
-        imageModal.style.display = "none";
-        modalImage.src = "";
+        modal.style.display = "none";
     };
 
     imageItems.forEach(item => {
@@ -74,11 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
         img.addEventListener("click", () => openModal(img, caption));
     });
 
-    document.querySelector(".close-btn").addEventListener("click", closeModal);
-    imageModal.addEventListener("click", (e) => {
-        if (e.target === imageModal) closeModal();
+    modal.querySelector(".close-btn").addEventListener("click", closeModal);
+    modal.addEventListener("click", e => {
+        if (e.target === modal) closeModal();
     });
 
-    // Initialize the filter on page load
     filterImages();
 });
