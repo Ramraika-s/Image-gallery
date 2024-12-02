@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <!-- Image Thumbnails -->
+        <figure class="gallery-item">
+            <img src="images/abstract-art.jpg" alt="Abstract Art" data-caption="Abstract Art">
+            <figcaption>Abstract Art</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/forest.jpg" alt="Forest" data-caption="Forest">
+            <figcaption>Forest</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/city-view.jpg" alt="City View" data-caption="City View">
+            <figcaption>City View</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/sunset.jpg" alt="Sunset" data-caption="Sunset">
+            <figcaption>Sunset</figcaption>
+        </figure>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-image" src="" alt="">
+        <div class="lightbox-caption"></div>
+        <button class="prev">&lt;</button>
+        <button class="next">&gt;</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
