@@ -3,38 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Image Gallery</title>
+    <title>Advanced Image Gallery</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Interactive Image Gallery</h1>
-        <p>Click on an image to view it in fullscreen mode.</p>
+        <h1>Advanced Image Gallery</h1>
+        <div class="controls">
+            <input type="text" id="searchBar" placeholder="Search images..." oninput="searchImages()">
+            <select id="categoryFilter" onchange="filterImages()">
+                <option value="all">All</option>
+                <option value="nature">Nature</option>
+                <option value="city">City</option>
+                <option value="abstract">Abstract</option>
+            </select>
+            <button id="themeToggle" onclick="toggleTheme()">Switch Theme</button>
+            <button id="slideshowButton" onclick="startSlideshow()">Start Slideshow</button>
+        </div>
     </header>
 
-    <div class="gallery">
-        <!-- Repeat these blocks for as many images as needed -->
-        <div class="image-container">
-            <img src="image1.jpg" alt="Image 1" onclick="openLightbox(0)">
-        </div>
-        <div class="image-container">
-            <img src="image2.jpg" alt="Image 2" onclick="openLightbox(1)">
-        </div>
-        <div class="image-container">
-            <img src="image3.jpg" alt="Image 3" onclick="openLightbox(2)">
-        </div>
-        <div class="image-container">
-            <img src="image4.jpg" alt="Image 4" onclick="openLightbox(3)">
-        </div>
-    </div>
+    <main class="gallery" id="gallery">
+        <!-- Images are dynamically loaded -->
+    </main>
 
-    <!-- Lightbox -->
+    <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
         <div class="lightbox-content">
             <span class="close" onclick="closeLightbox()">&times;</span>
             <img id="lightboxImage" src="" alt="Fullscreen Image">
             <div class="caption" id="caption"></div>
+            <button id="downloadButton" onclick="downloadImage()">Download</button>
             <div class="navigation">
                 <span class="prev" onclick="changeImage(-1)">&#10094;</span>
                 <span class="next" onclick="changeImage(1)">&#10095;</span>
@@ -43,7 +42,7 @@
     </div>
 
     <footer>
-        <p>© 2024 Shivam's Portfolio | Image Gallery Project</p>
+        <p>© 2024 Shivam's Portfolio | Advanced Image Gallery Project</p>
     </footer>
 
     <script src="script.js"></script>
