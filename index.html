@@ -1,53 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Image Gallery</title>
+    <meta name="description" content="A beautiful and interactive image gallery showcasing stunning visuals with easy navigation and a modern layout.">
+    <title>Image Gallery</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
-<body>
-    <!-- Search bar -->
-    <div class="search-container">
-        <input type="text" id="searchBar" class="search-bar" placeholder="Search images...">
-        <select id="categoryFilter" class="category-filter" aria-label="Select a category filter">
-            <option value="">All Categories</option>
-            <option value="abstract">Abstract</option>
-            <option value="nature">Nature</option>
-            <option value="urban">Urban</option>
-            <option value="sunset">Sunset</option>
-        </select>
-    </div>
 
-    <!-- Image gallery container -->
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1 class="title">Image Gallery</h1>
+        <p class="header-description">Explore a variety of beautiful images categorized and ready to view in full-screen mode.</p>
+    </header>
+
+    <!-- Gallery Container -->
     <div class="gallery-container">
-        <figure class="image-item" data-category="abstract">
-            <img src="images/abstract-art.jpg" alt="Abstract Art" class="gallery-image" />
-            <figcaption>Abstract Art</figcaption>
-        </figure>
-        <figure class="image-item" data-category="nature">
-            <img src="images/forest.jpg" alt="Forest" class="gallery-image" />
-            <figcaption>Forest</figcaption>
-        </figure>
-        <figure class="image-item" data-category="urban">
-            <img src="images/city-view.jpg" alt="City View" class="gallery-image" />
-            <figcaption>City View</figcaption>
-        </figure>
-        <figure class="image-item" data-category="sunset">
-            <img src="images/sunset.jpg" alt="Sunset" class="gallery-image" />
-            <figcaption>Sunset</figcaption>
-        </figure>
-        <!-- Add more images as needed -->
+        <div class="filters">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Search images..." aria-label="Search for images">
+            <select id="categoryFilter" class="category-filter" aria-label="Select a category filter">
+                <option value="">All Categories</option>
+                <option value="abstract">Abstract</option>
+                <option value="nature">Nature</option>
+                <option value="urban">Urban</option>
+                <option value="sunset">Sunset</option>
+            </select>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Image Placeholders (Add more as needed) -->
+            <figure class="gallery-item" data-category="abstract">
+                <img src="Abstract-art.jpg" alt="Abstract art" class="gallery-image" loading="lazy">
+                <figcaption>Abstract Art</figcaption>
+            </figure>
+            <figure class="gallery-item" data-category="nature">
+                <img src="Forest.jpg" alt="Forest scenery" class="gallery-image" loading="lazy">
+                <figcaption>Forest</figcaption>
+            </figure>
+            <figure class="gallery-item" data-category="urban">
+                <img src="city-view.jpg" alt="City view" class="gallery-image" loading="lazy">
+                <figcaption>City View</figcaption>
+            </figure>
+            <figure class="gallery-item" data-category="sunset">
+                <img src="sunset.jpg" alt="Sunset view" class="gallery-image" loading="lazy">
+                <figcaption>Sunset</figcaption>
+            </figure>
+        </div>
     </div>
 
     <!-- Modal for full-screen image view -->
     <div id="imageModal" class="modal">
         <span class="close-btn" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalImage" alt="Full-screen view of image" />
+        <img class="modal-content" id="modalImage" />
         <div id="modalCaption"></div>
-        <a id="downloadBtn" class="download-btn hidden" download>Download</a>
+        <a id="downloadBtn" class="download-btn" style="display: none;" download>Download</a>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#about" class="footer-link">About</a>
+            <a href="#privacy-policy" class="footer-link">Privacy Policy</a>
+            <a href="#terms-conditions" class="footer-link">Terms and Conditions</a>
+        </div>
+        <p class="footer-text">© 2024 Image Gallery. All rights reserved.</p>
+    </footer>
+
 </body>
+
 </html>
