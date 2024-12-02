@@ -1,129 +1,125 @@
-* {
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #fff;
-}
-
-.gallery-container {
-    width: 90%;
-    margin: 20px auto;
+    background-color: #f4f4f4;
 }
 
 .search-container {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    justify-content: center;
+    margin: 20px 0;
 }
 
-#search-bar {
-    width: 70%;
+.search-bar {
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
+    width: 300px;
     border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
 }
 
-#category-filter {
+.category-filter {
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
     border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.gallery {
+/* Gallery Layout */
+.gallery-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
+    gap: 20px;
+    padding: 20px;
 }
 
 .image-item {
     position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.image-item img {
+.image-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-image {
     width: 100%;
     height: auto;
+    display: block;
     border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-
-.image-item:hover img {
-    transform: scale(1.05);
 }
 
 figcaption {
     text-align: center;
     margin-top: 10px;
-    font-size: 18px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+    max-height: 80%;
+}
+
+#modalCaption {
+    text-align: center;
+    color: white;
+    padding: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #bbb;
+    text-decoration: none;
 }
 
 .download-btn {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: #ff9900;
-    border: none;
-    border-radius: 5px;
+    display: block;
+    color: white;
     font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.download-btn:hover {
-    background-color: #ff6600;
-}
-
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.lightbox img {
-    width: 80%;
-    max-width: 900px;
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.lightbox .close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: #fff;
-    cursor: pointer;
-}
-
-.nav-buttons button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 30px;
-    color: #fff;
-    background-color: transparent;
+    padding: 10px 20px;
+    background-color: #333;
     border: none;
+    text-decoration: none;
+    border-radius: 5px;
     cursor: pointer;
+    margin: 20px auto;
 }
 
-.nav-buttons button:first-child {
-    left: 10px;
-}
-
-.nav-buttons button:last-child {
-    right: 10px;
+/* Hide the download button */
+.hidden {
+    display: none;
 }
