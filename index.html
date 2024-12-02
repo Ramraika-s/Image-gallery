@@ -1,84 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Interactive Image Gallery</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
 </head>
-
 <body>
-    <!-- Gallery Container -->
+    <!-- Search bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search images...">
+        <select id="categoryFilter" class="category-filter">
+            <option value="">All Categories</option>
+            <option value="abstract">Abstract</option>
+            <option value="nature">Nature</option>
+            <option value="urban">Urban</option>
+            <option value="sunset">Sunset</option>
+        </select>
+    </div>
+
+    <!-- Image gallery container -->
     <div class="gallery-container">
-        <!-- Search Bar -->
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search images..." onkeyup="filterImages()">
-        </div>
-
-        <!-- Category Filter -->
-        <div class="category-filter">
-            <button onclick="filterCategory('all')">All</button>
-            <button onclick="filterCategory('abstract')">Abstract</button>
-            <button onclick="filterCategory('nature')">Nature</button>
-            <button onclick="filterCategory('city')">City</button>
-        </div>
-
-        <!-- Image Gallery -->
-        <div class="gallery">
-            <div class="image-card" data-category="abstract">
-                <figure>
-                    <img src="assets/images/abstract-art.jpg" alt="Abstract Art" loading="lazy">
-                    <figcaption>Abstract Art</figcaption>
-                </figure>
-            </div>
-            <div class="image-card" data-category="nature">
-                <figure>
-                    <img src="assets/images/forest.jpg" alt="Forest" loading="lazy">
-                    <figcaption>Forest</figcaption>
-                </figure>
-            </div>
-            <div class="image-card" data-category="city">
-                <figure>
-                    <img src="assets/images/city-view.jpg" alt="City View" loading="lazy">
-                    <figcaption>City View</figcaption>
-                </figure>
-            </div>
-            <div class="image-card" data-category="nature">
-                <figure>
-                    <img src="assets/images/sunset.jpg" alt="Sunset" loading="lazy">
-                    <figcaption>Sunset</figcaption>
-                </figure>
-            </div>
-            <!-- Add more images here -->
-        </div>
-
-  <!-- Modal for full-screen image view -->
-<div id="imageModal" class="modal">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modalImage" />
-    <div id="modalCaption"></div>
-    <a id="downloadBtn" class="download-btn" style="display: none;" download>Download</a>
-</div>
-
-        <!-- Slideshow Navigation -->
-        <div class="slideshow-controls">
-            <button id="prevBtn" onclick="changeImage(-1)">&#10094;</button>
-            <button id="nextBtn" onclick="changeImage(1)">&#10095;</button>
-        </div>
+        <figure class="image-item" data-category="abstract">
+            <img src="images/abstract-art.jpg" alt="Abstract Art" class="gallery-image" />
+            <figcaption>Abstract Art</figcaption>
+        </figure>
+        <figure class="image-item" data-category="nature">
+            <img src="images/forest.jpg" alt="Forest" class="gallery-image" />
+            <figcaption>Forest</figcaption>
+        </figure>
+        <figure class="image-item" data-category="urban">
+            <img src="images/city-view.jpg" alt="City View" class="gallery-image" />
+            <figcaption>City View</figcaption>
+        </figure>
+        <figure class="image-item" data-category="sunset">
+            <img src="images/sunset.jpg" alt="Sunset" class="gallery-image" />
+            <figcaption>Sunset</figcaption>
+        </figure>
+        <!-- Add more images as needed -->
     </div>
 
-    <!-- Autoplay Slideshow -->
-    <div id="slideshowContainer" class="slideshow-container">
-        <div class="slides">
-            <img src="assets/images/abstract-art.jpg" alt="Abstract Art" class="slide-image" loading="lazy">
-            <img src="assets/images/forest.jpg" alt="Forest" class="slide-image" loading="lazy">
-            <img src="assets/images/city-view.jpg" alt="City View" class="slide-image" loading="lazy">
-            <img src="assets/images/sunset.jpg" alt="Sunset" class="slide-image" loading="lazy">
-        </div>
+    <!-- Modal for full-screen image view -->
+    <div id="imageModal" class="modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Full-screen view of image" />
+        <div id="modalCaption"></div>
+        <a id="downloadBtn" class="download-btn hidden" download>Download</a>
     </div>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
