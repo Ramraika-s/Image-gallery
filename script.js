@@ -1,85 +1,56 @@
-const images = [
-    { src: 'images/Abstract-art.jpg', caption: 'Abstract Art', category: 'abstract' },
-    { src: 'images/Forest.jpg', caption: 'Beautiful Forest', category: 'nature' },
-    { src: 'images/city-view.jpg', caption: 'City View', category: 'city' },
-    { src: 'images/sunset.jpg', caption: 'Sunset Scenery', category: 'nature' },
-];
+// Get elements
+const galleryItems = document.querySelectorAll('.gallery-item img');
+const lightbox = document.querySelector('.lightbox');
+const lightboxImage = document.querySelector('.lightbox-image');
+const lightboxCaption = document.querySelector('.lightbox-caption');
+const closeBtn = document.querySelector('.lightbox .close');
+const prevBtn = document.querySelector('.lightbox .prev');
+const nextBtn = document.querySelector('.lightbox .next');
 
-const gallery = document.getElementById('gallery');
-const searchBar = document.getElementById('searchBar');
-const categoryFilter = document.getElementById('categoryFilter');
-const slideshowButton = document.getElementById('slideshowButton');
-const toggleThemeButton = document.getElementById('toggleTheme');
-const fullscreen = document.getElementById('fullscreen');
-const fullscreenImg = document.getElementById('fullscreenImg');
-const fullscreenCaption = document.getElementById('fullscreenCaption');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const closeFullscreen = document.getElementById('closeFullscreen');
-
+// Variables
 let currentIndex = 0;
-let slideshowInterval;
 
-function renderGallery() {
-    gallery.innerHTML = '';
-    const query = searchBar.value.toLowerCase();
-    const category = categoryFilter.value;
+// Open Lightbox
+galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        currentIndex = index;
+        showLightbox(item);
+    });
+});
 
-    images
-        .filter(img =>
-            (category === 'all' || img.category === category) &&
-            img.caption.toLowerCase().includes(query)
-        )
-        .forEach((img, index) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <img src="${img.src}" alt="${img.caption}" data-index="${index}">
-                <div class="caption">${img.caption}</div>
-            `;
-            card.addEventListener('click', () => openFullscreen(index));
-            gallery.appendChild(card);
-        });
+function showLightbox(item) {
+    lightbox.style.display = 'flex';
+    lightboxImage.src = item.src;
+    lightboxCaption.textContent = item.dataset.caption;
 }
 
-function openFullscreen(index) {
-    currentIndex = index;
-    fullscreenImg.src = images[currentIndex].src;
-    fullscreenCaption.textContent = images[currentIndex].caption;
-    fullscreen.classList.remove('hidden');
+// Close Lightbox
+closeBtn.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+});
+
+// Navigate Images
+prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+    updateLightbox();
+});
+
+nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % galleryItems.length;
+    updateLightbox();
+});
+
+function updateLightbox() {
+    const item = galleryItems[currentIndex];
+    lightboxImage.src = item.src;
+    lightboxCaption.textContent = item.dataset.caption;
 }
 
-function closeFullscreenMode() {
-    fullscreen.classList.add('hidden');
-    clearInterval(slideshowInterval);
-}
-
-function showNextImage() {
-    currentIndex = (currentIndex + 1) % images.length;
-    openFullscreen(currentIndex);
-}
-
-function showPrevImage() {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    openFullscreen(currentIndex);
-}
-
-function startSlideshow() {
-    if (!slideshowInterval) {
-        slideshowInterval = setInterval(showNextImage, 3000);
+// Keyboard Navigation
+document.addEventListener('keydown', (e) => {
+    if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
+        if (e.key === 'Escape') closeBtn.click();
     }
-}
-
-function toggleTheme() {
-    document.body.classList.toggle('light-theme');
-}
-
-searchBar.addEventListener('input', renderGallery);
-categoryFilter.addEventListener('change', renderGallery);
-slideshowButton.addEventListener('click', startSlideshow);
-toggleThemeButton.addEventListener('click', toggleTheme);
-closeFullscreen.addEventListener('click', closeFullscreenMode);
-prevBtn.addEventListener('click', showPrevImage);
-nextBtn.addEventListener('click', showNextImage);
-
-renderGallery();
+});
