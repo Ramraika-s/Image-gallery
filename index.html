@@ -3,32 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Gallery</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Interactive Image Gallery</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Advanced Image Gallery</h1>
-        <div class="controls">
-            <input type="text" id="searchBar" placeholder="Search by caption..." />
-            <select id="categoryFilter">
-                <option value="all">All Categories</option>
-                <option value="nature">Nature</option>
-                <option value="abstract">Abstract</option>
-                <option value="city">City</option>
-            </select>
-            <button id="slideshowButton">Start Slideshow</button>
-            <button id="toggleTheme">Toggle Theme</button>
-        </div>
-    </header>
-    <main id="gallery"></main>
-    <div id="fullscreen" class="hidden">
-        <img id="fullscreenImg" src="" alt="Fullscreen Image">
-        <div id="fullscreenCaption"></div>
-        <button id="prevBtn">&#10094;</button>
-        <button id="nextBtn">&#10095;</button>
-        <button id="closeFullscreen">X</button>
+    <div class="gallery-container">
+        <!-- Image Thumbnails -->
+        <figure class="gallery-item">
+            <img src="images/abstract-art.jpg" alt="Abstract Art" data-caption="Abstract Art">
+            <figcaption>Abstract Art</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/forest.jpg" alt="Forest" data-caption="Forest">
+            <figcaption>Forest</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/city-view.jpg" alt="City View" data-caption="City View">
+            <figcaption>City View</figcaption>
+        </figure>
+        <figure class="gallery-item">
+            <img src="images/sunset.jpg" alt="Sunset" data-caption="Sunset">
+            <figcaption>Sunset</figcaption>
+        </figure>
     </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-image" src="" alt="">
+        <div class="lightbox-caption"></div>
+        <button class="prev">&lt;</button>
+        <button class="next">&gt;</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
