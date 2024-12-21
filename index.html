@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A stunning image gallery showcasing beautiful photos.">
+    <meta name="keywords" content="image gallery, photos, beautiful images, responsive">
+    <title>Visionary Image Gallery</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header>
+        <div class="branding">
+            <h1>Visionary Image Gallery</h1>
+        </div>
+        <nav>
+            <input type="text" id="search" placeholder="Search images..." aria-label="Search images by title">
+        </nav>
+    </header>
+
+    <main>
+        <section id="gallery" class="image-grid" role="region" aria-label="Image Gallery"></section>
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="lightbox-container" role="dialog" aria-hidden="true">
+            <div class="lightbox-content">
+                <img id="lightbox-image" src="" alt="" />
+                <h2 id="lightbox-title"></h2>
+                <p id="lightbox-description"></p>
+                <button id="lightbox-close" aria-label="Close Lightbox">×</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
