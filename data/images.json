@@ -1,19 +1,19 @@
 [
     {
-        "thumb": "/assets/images/image1-thumb.jpg",
-        "full": "/assets/images/image1-full.jpg",
+        "thumb": "assets/images/image1-thumb.jpg",
+        "full": "assets/images/image1-full.jpg",
         "title": "Sunset Over the OceanMountain Range",
         "description": "A majestic view of snow-capped mountains under a clear blue sky."
     },
     {
-        "thumb": "/assets/images/image2-thumb.jpg",
-        "full": "/assets/images/image2-full.jpg",
+        "thumb": "assets/images/image2-thumb.jpg",
+        "full": "assets/images/image2-full.jpg",
         "title": "Cityscape at Night",
         "description": "A breathtaking cityscape with skyscrapers lit up at night."
     },
     {
-        "thumb": "/assets/images/image3-thumb.jpg",
-        "full": "/assets/images/image3-full.jpg",
+        "thumb": "assets/images/image3-thumb.jpg",
+        "full": "assets/images/image3-full.jpg",
         "title": "Sunset Over the Ocean",
         "description": "A beautiful sunset over the ocean with vivid colors."
     }
